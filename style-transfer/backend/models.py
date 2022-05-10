@@ -1,6 +1,6 @@
 from ast import In
 from db import Base
-from sqlalchemy import Column, Integer, Boolean, Text, String, ForeignKey
+from sqlalchemy import Column, Integer, Boolean, Text, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 
 
@@ -23,6 +23,7 @@ class Notes(Base):
     id = Column(Integer, primary_key=True)
     Notes = Column(Text, nullable=False)
     user_id = Column(Integer, ForeignKey("Users.id"))
+    #DateCreated = Column(DateTime, nullable=False)
     user = relationship('User', back_populates='notes')
 
     def __repr__(self):
