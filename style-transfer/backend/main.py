@@ -13,7 +13,7 @@ app = FastAPI()
 app.include_router(auth_router)
 app.include_router(notes_router)
 
-# session = Session(bind=engine)
+session = Session(bind=engine)
 
 # @app.get('/notes', response_model = List[Notes], status_code = status.HTTP_200_OK)
 # async def get_all_notes():
