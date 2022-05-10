@@ -35,7 +35,7 @@ class LoginModel(BaseModel):
 class NotesModel(BaseModel):
     id: Optional[int]
     Notes: str
-    #DateCreated: str
+    DateCreated: str
     user_id: Optional[int]
 
     class Config:
@@ -46,3 +46,11 @@ class NotesModel(BaseModel):
             }
 
         }
+
+class PatientsModel(BaseModel):
+    id: Optional[int]
+    first_name: str
+    last_name: str
+    email: str
+    age: int
+    date_added: str
