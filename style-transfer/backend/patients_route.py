@@ -78,7 +78,10 @@ async def update_patient(first_name: str, last_name: str, patient: PatientsModel
 
     info_to_update = session.query(Patients).filter(Patients.first_name.like(first_name), 
                                     Patients.last_name.like(last_name)).first()
-    info_to_update.Patients = patient.Patients
+    info_to_update.first_name = patient.first_name
+    info_to_update.last_name = patient.last_name
+    info_to_update.email = patient.email
+    info_to_update.age = patient.age
 
     session.commit()
 
