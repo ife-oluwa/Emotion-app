@@ -1,8 +1,6 @@
-from tkinter import N
 from fastapi import APIRouter, Depends, status
 from fastapi.exceptions import HTTPException
 from fastapi_jwt_auth import AuthJWT
-from regex import E
 from models import User, Notes
 from schemas import NotesModel
 from db import session, engine
@@ -54,8 +52,9 @@ async def write_note(write_note:NotesModel, Authorize:AuthJWT=Depends()):
     session.commit()
 
     response = {
-        "notes": new_note.Notes,
-        "id": new_note.id
+        "id": new_note.id,
+        "notes": new_note.Notes
+        
     }
 
     return jsonable_encoder(response)
@@ -72,7 +71,7 @@ async def list_all_notes(Authorize:AuthJWT=Depends()):
 
     user = session.query(User).filter(User.username == current_user).first()
 
-    if user.is_admin and user.id == 2: 
+    if user.is_admin: 
         notes = session.query(Notes).all()
 
         return jsonable_encoder(notes)
@@ -89,7 +88,7 @@ async def get_note_by_id(id:int, Authorize:AuthJWT=Depends()):
 
     user = session.query(User).filter(User.username == current_user).first()
 
-    if user.is_admin and user.id == 2:
+    if user.is_admin:
         note = session.query(Notes).filter(Notes.id == id).first()
 
         return jsonable_encoder(note)

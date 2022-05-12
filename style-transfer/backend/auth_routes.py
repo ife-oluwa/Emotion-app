@@ -8,7 +8,6 @@ from fastapi.exceptions import HTTPException
 from werkzeug.security import generate_password_hash, check_password_hash
 from fastapi_jwt_auth import AuthJWT
 from fastapi.encoders import jsonable_encoder
-from fastapi.exceptions import HTTPException
 import requests
 
 auth_router = APIRouter(
@@ -65,10 +64,12 @@ async def login(user:LoginModel, Authorize:AuthJWT=Depends()):
     if db_user and check_password_hash(db_user.password, user.password):
         access_token = Authorize.create_access_token(subject=db_user.username)
         refresh_token = Authorize.create_refresh_token(subject=db_user.username)
+        admin_status = db_user.is_admin
 
         response = {
             "access": access_token,
-            "refresh": refresh_token
+            "refresh": refresh_token,
+            "admin_status": admin_status
         }
 
         return jsonable_encoder(response)

@@ -35,7 +35,8 @@ class LoginModel(BaseModel):
 class NotesModel(BaseModel):
     id: Optional[int]
     Notes: str
-    DateCreated: str
+    DateCreated: Optional[str]
+    DateMod: Optional[str]
     user_id: Optional[int]
 
     class Config:
