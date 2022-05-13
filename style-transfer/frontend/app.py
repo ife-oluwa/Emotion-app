@@ -8,7 +8,7 @@ from pandas import DataFrame, json_normalize
 
 
 #Backend connector
-backend = "http://localhost:8000"
+backend = "http://host.docker.internal:8000"
 
 app = MultiApp()
 headerSection = st.container()
