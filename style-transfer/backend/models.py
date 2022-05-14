@@ -1,13 +1,16 @@
 from ast import In
 from db import Base
+import database as _db
 from sqlalchemy import Column, Integer, Boolean, Text, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+import datetime as _dt
 
 
-class User(Base):
+
+class User(_db.Base):
     __tablename__ = 'Users'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, index=True)
     username = Column(String(25), unique=True)
     FirstName = Column(String(25), nullable=False)
     LastName = Column(String(25), nullable=False)
@@ -15,11 +18,12 @@ class User(Base):
     password = Column(Text, nullable=False)
     is_admin = Column(Boolean, default=False)
     notes = relationship('Notes', back_populates='user')
+    date_created = Column(DateTime, default=_dt.datetime.utcnow)
 
     def __repr__(self):
         return f'User {self.username}'
 
-class Notes(Base):
+class Notes(_db.Base):
     __tablename__ = 'Notes'
     id = Column(Integer, primary_key=True)
     Notes = Column(Text, nullable=False)
@@ -31,7 +35,7 @@ class Notes(Base):
     def __repr__(self):
         return f'Notes {self.id}'
 
-class Patients(Base):
+class Patients(_db.Base):
     __tablename__ = 'Patients'
     id = Column(Integer, primary_key=True)
     first_name = Column(String(25), nullable=False)
