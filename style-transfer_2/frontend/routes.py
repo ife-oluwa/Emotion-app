@@ -109,7 +109,7 @@ def date_format(string, obj: str):
 
 
 def text_analysis(text):
-    model = load_model("../frontend/model/NLP.h5")
+    model = load_model("model/saved_model.pb")
     ohe_trial = [one_hot(text, 40000)]
     embed = pad_sequences(ohe_trial, padding="pre", maxlen=120)
     pred = model.predict(embed)
